@@ -34,7 +34,6 @@ jobs:
               uses: actions/download-artifact@v5
               with:
                   name: dragon-art
-                  path: dragon_art.txt
 
             - name: Read Generated ASCII Art
               run: |
