@@ -1,0 +1,16 @@
+name: Generate ASCII Art Workflow
+on: [push]
+jobs:
+    generate_ascii_art:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v5
+
+            - name: Install cowsay program and Generate ASCII Art
+              run: |
+                   sudo apt-get update
+                   sudo apt-get install -y cowsay
+                   echo "Generating ASCII Art..."
+                   cowsay -f dragon "I am a dragon!" >> dragon_art.txt
+                   grep "dragon" dragon_art.txt

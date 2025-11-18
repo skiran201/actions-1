@@ -13,9 +13,6 @@ jobs:
                    ls -la
                    cat README.md
 
-            - name: Generate ASCII Art
-              run: cowsay -f dragon "I am a dragon!"
-
             # - name: List files
             #   run: ls -la
 
