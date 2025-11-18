@@ -21,7 +21,7 @@ jobs:
                      ./shell.sh
 
             - name: Upload Generated ASCII Art
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: dragon-art
                   path: dragon_art.txt
