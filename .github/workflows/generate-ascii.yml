@@ -14,3 +14,7 @@ jobs:
                    echo "Generating ASCII Art..."
                    cowsay -f dragon "I am a dragon!" >> dragon_art.txt
                    grep "dragon" dragon_art.txt
+                   cat dragon_art.txt
+
+            - name: Executing Shell Script
+              run: ./shell.sh
