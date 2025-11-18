@@ -20,12 +20,21 @@ jobs:
                      chmod +x ./shell.sh
                      ./shell.sh
 
+            - name: Upload Generated ASCII Art
+              uses: actions/upload-artifact@v3
+              with:
+                  name: dragon-art
+                  path: dragon_art.txt
+
     read_ascii_art:
         runs-on: ubuntu-latest
         needs: generate_ascii_art
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v5
+            - name: Download Generated ASCII Art
+              uses: actions/download-artifact@v5
+              with:
+                  name: dragon-art
+                  path: dragon_art.txt
 
             - name: Read Generated ASCII Art
               run: |
