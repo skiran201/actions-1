@@ -17,4 +17,6 @@ jobs:
                    cat dragon_art.txt
 
             - name: Executing Shell Script
-              run: ./shell.sh
+              run: |
+                     chmod +x ./shell.sh
+                     ./shell.sh
