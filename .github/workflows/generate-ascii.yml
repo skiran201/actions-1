@@ -14,9 +14,20 @@ jobs:
                    echo "Generating ASCII Art..."
                    cowsay -f dragon "I am a dragon!" >> dragon_art.txt
                    grep "dragon" dragon_art.txt
-                   cat dragon_art.txt
 
             - name: Executing Shell Script
               run: |
                      chmod +x ./shell.sh
                      ./shell.sh
+
+    read_ascii_art:
+        runs-on: ubuntu-latest
+        needs: generate_ascii_art
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v5
+
+            - name: Read Generated ASCII Art
+              run: |
+                   echo "Reading Generated ASCII Art..."
+                   cat dragon_art.txt
