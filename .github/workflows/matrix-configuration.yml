@@ -12,8 +12,8 @@ jobs:
                       images: alpine
         runs-on: ${{ matrix.os }}
         steps:
-
             - name: Echo docker details
+              if: matrix.images == 'alpine' && matrix.os == 'ubuntu-latest'
               run: |
                      echo "Running on OS: ${{ matrix.os }}"
                      echo "matrix context : ${{ toJson(matrix) }}"
