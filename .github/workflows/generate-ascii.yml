@@ -1,7 +1,8 @@
 name: Generate ASCII Art Workflow
 on: 
-  schedule:
-    - cron: '* * * * 0'  # Runs weekly on Sundays at midnight
+    workflow_dispatch:
+#   schedule:
+#     - cron: '* * * * 0'  # Runs weekly on Sundays at midnight
 env:
     GLOBAL_ART_STYLE: "dragon"
 jobs:
