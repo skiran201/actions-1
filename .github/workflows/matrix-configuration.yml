@@ -4,17 +4,20 @@ on:
 jobs:
     deploy:
         strategy:
+            fail-fast: false
+            max-parallel: 2
             matrix:
                 os: [ubuntu-latest, windows-latest, ubuntu-20.04]
                 images: [hello-world, alpine]
+                exclude:
+                    - os: windows-latest
+                      images: alpine
+                include:
+                    - os: ubuntu-20.04
+                      images: amd64/alpine
         runs-on: ${{ matrix.os }}
         steps:
-            # ignore alpine image for windows
-            - name: Check for Windows and Alpine
-              if: ${{ matrix.os }} == 'windows-latest' && ${{ matrix.images }} == 'alpine'
-              run: |
-                     echo "Skipping Alpine image on Windows"
-                     exit 0
+
             - name: Echo docker details
               run: |
                      echo "Running on OS: ${{ matrix.os }}"
