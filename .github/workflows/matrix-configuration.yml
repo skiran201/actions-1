@@ -21,6 +21,7 @@ jobs:
             - name: Echo docker details
               run: |
                      echo "Running on OS: ${{ matrix.os }}"
+                     echo "matrix context : ${{ toJson(matrix) }}"
                      docker info
             - name: Run Image on ${{ matrix.os }}
               run: docker run ${{ matrix.images }}
