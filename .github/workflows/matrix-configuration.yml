@@ -9,11 +9,16 @@ jobs:
                 images: [hello-world, alpine]
         runs-on: ${{ matrix.os }}
         steps:
+            # ignore alping image for windows
+            - name: Check for Windows and Alpine
+              if: matrix.os == 'windows-latest' && matrix.images == 'alpine'
+              run: |
+                     echo "Skipping Alpine image on Windows"
+                     exit 0
             - name: Echo docker details
               run: |
                      echo "Running on OS: ${{ matrix.os }}"
                      docker info
-
             - name: Run Image on ${{ matrix.os }}
               run: docker run ${{ matrix.images }}
               
