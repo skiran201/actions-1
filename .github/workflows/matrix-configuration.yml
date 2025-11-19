@@ -32,3 +32,4 @@ jobs:
             - name: Run Image on ${{ matrix.os }}
               run: docker run ${{ matrix.images }}
               
+# to skip workflow execution for a commit, include [skip ci] or [ci skip] in the commit message
