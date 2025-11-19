@@ -9,9 +9,9 @@ jobs:
                 images: [hello-world, alpine]
         runs-on: ${{ matrix.os }}
         steps:
-            # ignore alping image for windows
+            # ignore alpine image for windows
             - name: Check for Windows and Alpine
-              if: matrix.os == 'windows-latest' && matrix.images == 'alpine'
+              if: ${{ matrix.os }} == 'windows-latest' && ${{ matrix.images }} == 'alpine'
               run: |
                      echo "Skipping Alpine image on Windows"
                      exit 0
