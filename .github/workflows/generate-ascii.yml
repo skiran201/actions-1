@@ -3,6 +3,7 @@ on:
     workflow_dispatch:
 #   schedule:
 #     - cron: '* * * * 0'  # Runs weekly on Sundays at midnight
+
 env:
     GLOBAL_ART_STYLE: "dragon"
 jobs:
@@ -37,12 +38,15 @@ jobs:
     read_ascii_art:
         runs-on: ubuntu-latest
         needs: generate_ascii_art
+        concurrency:
+            group: read-ascii-art-group
+            cancel-in-progress: true
+        timeout-minutes: 10
         steps:
             - name: Download Generated ASCII Art
               uses: actions/download-artifact@v5
               with:
                   name: dragon-art
-
             - name: Read Generated ASCII Art
               run: |
                    echo "Reading Generated ASCII Art..."
@@ -51,3 +55,10 @@ jobs:
 
 # to access repository secrets in a workflow, use the syntax ${{ secrets.SECRET_NAME }}
 # to access repository variables in a workflow, use the syntax ${{ vars.VARIABLE_NAME }}
+# to access environment variables in a workflow, use the syntax $ENV_VARIABLE_NAME
+# to reference another job's outputs, use the syntax ${{ needs.JOB_ID.outputs.OUTPUT_NAME }}
+# to reference the current workflow run ID, use the syntax ${{ github.run_id }}
+# to reference the current workflow run number, use the syntax ${{ github.run_number }}
+# to reference the current commit SHA, use the syntax ${{ github.sha }}
+# concurrency can be added at the job or workflow level
+# timeout-minutes can be added at the job or workflow or step level
