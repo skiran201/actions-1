@@ -1,7 +1,13 @@
 name: Generate ASCII Art Workflow
-on: [push]
+on: 
+  schedule:
+    - cron: '* * * * 0'  # Runs weekly on Sundays at midnight
+env:
+    GLOBAL_ART_STYLE: "dragon"
 jobs:
     generate_ascii_art:
+        env:
+            ARTIST_NAME: "DragonMaster"
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
@@ -11,6 +17,7 @@ jobs:
               run: |
                    sudo apt-get update
                    sudo apt-get install -y cowsay
+                   echo "Hello from $ARTIST_NAME using style $GLOBAL_ART_STYLE"
                    echo "Generating ASCII Art..."
                    cowsay -f dragon "I am a dragon!" >> dragon_art.txt
                    grep "dragon" dragon_art.txt
@@ -39,3 +46,7 @@ jobs:
               run: |
                    echo "Reading Generated ASCII Art..."
                    cat dragon_art.txt
+
+
+# to access repository secrets in a workflow, use the syntax ${{ secrets.SECRET_NAME }}
+# to access repository variables in a workflow, use the syntax ${{ vars.VARIABLE_NAME }}
