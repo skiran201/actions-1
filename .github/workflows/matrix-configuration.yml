@@ -1,6 +1,16 @@
 name: Matrix Strategy
 on:
     workflow_dispatch:
+    push:
+        branches-ignore:
+            - docs/**
+    pull_request:
+        types: [opened, synchronize, reopened, edited, ready_for_review, reopened]
+        paths-ignore:
+            - docs/**
+            - README.md
+        branches:
+            - main
 jobs:
     deploy:
         strategy:
@@ -17,6 +27,7 @@ jobs:
               run: |
                      echo "Running on OS: ${{ matrix.os }}"
                      echo "matrix context : ${{ toJson(matrix) }}"
+                     echo "Running on event : ${{ toJson(github.event_name) }}"
                      docker info
             - name: Run Image on ${{ matrix.os }}
               run: docker run ${{ matrix.images }}
